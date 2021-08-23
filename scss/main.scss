@@ -1,3 +1,30 @@
+$primary-color: #272727;
+$accent-color: #ff652f;
+$text-color: #fff;
+// Map = array of options - access with map-get(name, key)
+$font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700,
+);
+
 body {
-  background: blue;
+  background: $primary-color;
+  color: $text-color;
+  
+}
+
+.main {
+  width: 80%;
+  margin: 0 auto;
+
+  // & = the parent
+  // #{&} = prepend the parent text and the parent div i.e. .main .main__paragraph {}
+  #{&}__paragraph {
+    font-weight: map-get($font-weights, bold);
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
 }
