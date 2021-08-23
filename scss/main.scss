@@ -1,30 +1,68 @@
-$primary-color: #272727;
-$accent-color: #ff652f;
-$text-color: #fff;
-// Map = array of options - access with map-get(name, key)
-$font-weights: (
-  "regular": 400,
-  "medium": 500,
-  "bold": 700,
-);
+// Compiler also adds vendor prefixes
+
+// Import partials - name files with _filename.css, import without _.
+// _ tells compiler not to compile.
+@import './resets';
+@import './variables';
+
+// Function to tidy up map-get syntax in main css
+// USE FUNCTIONS TO COMPUTE VALUES
+@function weight($weight-name) {
+  @return map-get($font-weights, $weight-name);
+}
+
+// Mixins - chunks of reusable css
+// Can optionally add arguments e.g. for flex direction (if not needed just write as @mixin mixinName {})
+// USE MIXINS TO DEFINE STYLES
+@mixin flexCenter($direction) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+// Mixin example - choosing between a light and dark theme
+@mixin theme($light-theme: true) {
+  @if $light-theme {
+    background: lighten($primary-color, 100%);
+    color: darken($text-color, 100%);
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    // @content will be passed when mixin is called
+    @content;
+  }
+}
 
 body {
   background: $primary-color;
   color: $text-color;
-  
 }
 
 .main {
+  // Include mixin defined above and pass argument for flex direction
+  @include flexCenter(row);
   width: 80%;
   margin: 0 auto;
 
   // & = the parent
   // #{&} = prepend the parent text and the parent div i.e. .main .main__paragraph {}
   #{&}__paragraph {
-    font-weight: map-get($font-weights, bold);
+    // Use weight function defined above
+    font-weight: weight(regular);
 
     &:hover {
       color: $accent-color;
     }
   }
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.light {
+  @include theme($light-theme: false);
 }
