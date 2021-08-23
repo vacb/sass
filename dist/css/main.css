@@ -28,12 +28,16 @@ body {
   margin: 0 auto;
 }
 
-.main .main__paragraph {
+.main .main__paragraph1, .main .main__paragraph2 {
   font-weight: 400;
 }
 
-.main .main__paragraph:hover {
+.main .main__paragraph1:hover, .main .main__paragraph2:hover {
   color: purple;
+}
+
+.main .main__paragraph2:hover {
+  color: #d64810;
 }
 
 @media (max-width: 800px) {

@@ -49,9 +49,18 @@ body {
 
   // & = the parent
   // #{&} = prepend the parent text and the parent div i.e. .main .main__paragraph {}
-  #{&}__paragraph {
+  #{&}__paragraph1 {
     // Use weight function defined above
     font-weight: weight(regular);
+
+    &:hover {
+      color: purple;
+    }
+  }
+
+  // Extend class, then can add anything extra you want
+  #{&}__paragraph2 {
+    @extend .main__paragraph1;
 
     &:hover {
       color: $accent-color;
